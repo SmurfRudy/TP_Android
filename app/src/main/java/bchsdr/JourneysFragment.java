@@ -37,16 +37,22 @@ public class JourneysFragment extends Fragment {
     }
 
     private void initList() {
-        Journey copenhagen = new Journey();
-        copenhagen.setName("Copenhagen");
+        Calendar from = Calendar.getInstance();
+        Calendar to = Calendar.getInstance();
+
+        from.set(2016,10,11);
+        to.set(2016,10,16);
+        Journey copenhagen = new Journey("Copenhagen",from,to);
         this.journeys.add(copenhagen);
 
-        Journey dublin = new Journey();
-        dublin.setName("Dublin");
+        from.set(2015,10,10);
+        to.set(2015,10,15);
+        Journey dublin = new Journey("Dublin",from,to);
         this.journeys.add(dublin);
 
-        Journey prague = new Journey();
-        prague.setName("Prague");
+        from.set(2014,10,07);
+        to.set(2014,10,13);
+        Journey prague = new Journey("Prague",from,to);
         this.journeys.add(prague);
     }
     public void addJourney(View view) {
