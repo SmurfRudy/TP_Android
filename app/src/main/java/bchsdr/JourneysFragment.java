@@ -32,6 +32,7 @@ public class JourneysFragment extends Fragment {
         JourneysFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.journeys_fragment, container, false);
         binding.journeysList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         binding.journeysList.setAdapter(new JourneyListAdapter(journeys));
+
         return binding.getRoot();
     }
 
@@ -48,4 +49,8 @@ public class JourneysFragment extends Fragment {
         prague.setName("Prague");
         this.journeys.add(prague);
     }
+    public void addJourney(View view) {
+        System.out.println("Ajout d'un séjour ");
+    }
+
 }

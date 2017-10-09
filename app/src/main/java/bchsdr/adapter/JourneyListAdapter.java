@@ -14,6 +14,7 @@ import java.util.Locale;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyItemBinding;
+import bchsdr.viewModel.JourneyViewModel;
 
 /**
  * Created by Maxime on 09/10/2017.
@@ -36,6 +37,8 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
             position) {
         JourneyItemBinding binding = holder.binding;
         Journey journey = journeys.get(position);
+        binding.setJvm(new JourneyViewModel(journeys.get(position)));
+
         binding.name.setText(journey.getName());
         Calendar cal = journey.getFrom();
         DateFormat sdf =

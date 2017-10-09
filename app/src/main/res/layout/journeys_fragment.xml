@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data/>
+    <data>
+    <variable
+        name="handler"
+        type="bchsdr.JourneysFragment"
+        />
+    </data>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -9,11 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_journey_button"
-            android:layout_gravity="bottom|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:onClick="@{handler.addJourney}"
             />
     </android.support.design.widget.CoordinatorLayout>
 </layout>
