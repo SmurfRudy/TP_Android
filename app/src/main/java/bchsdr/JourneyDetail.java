@@ -1,6 +1,8 @@
 package bchsdr;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +41,24 @@ public class JourneyDetail extends Fragment {
     }
 
     public void close(View view) {
-        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+        JourneysFragment journeysFragment = new JourneysFragment();
+        // Debut du changement de fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        // Pour passer des paramètres on utilise un bundle
+        //Bundle bundle = new Bundle();
+        //Journey journeyTest = journeys.get(0);
+        // On passe un objet (qui doit etre serializable
+        //bundle.putSerializable("journey",journeyTest);
+        // On passe le bundle (avec l'objet) au nouveau fragment
+        //journeyDetail.setArguments(bundle);
+
+        // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
+        fragmentTransaction.addToBackStack(null);
+        // On remplace le fragment dans le container par le nouveau fragment
+        fragmentTransaction.add(R.id.fragment_container, journeysFragment);
+
+        fragmentTransaction.commit();
     }
 }
