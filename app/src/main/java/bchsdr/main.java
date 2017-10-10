@@ -38,4 +38,10 @@ public class main extends AppCompatActivity {
         transaction.commit();
     }
 
+    public void showDetail(Journey journey){
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        JourneyDetail detail = new JourneyDetail();
+    }
+
 }

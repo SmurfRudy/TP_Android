@@ -1,12 +1,13 @@
 package bchsdr.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Maxime on 09/10/2017.
  */
 
-public class Journey {
+public class Journey implements Serializable {
     private String name;
     private Calendar from;
     private Calendar to;
