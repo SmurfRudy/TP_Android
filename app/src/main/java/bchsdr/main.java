@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import bchsdr.adapter.JourneyListAdapter;
@@ -29,12 +30,11 @@ public class main extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-
-        JourneysSQLiteHelper db = new JourneysSQLiteHelper(this);
-
+        initdb();
         this.showStartup();
 
     }
+
 
     public void showStartup() {
         FragmentManager manager = getFragmentManager();
@@ -48,6 +48,37 @@ public class main extends AppCompatActivity {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         JourneyDetail detail = new JourneyDetail();
+    }
+
+    public void initdb(){
+        JourneysSQLiteHelper db = new JourneysSQLiteHelper(this);
+        Calendar from1 = Calendar.getInstance();
+        Calendar to1 = Calendar.getInstance();
+        from1.set(2016,10,11);
+        to1.set(2016,10,16);
+        Journey copenhagen = new Journey("Copenhagen",from1,to1,1,"desciption 1");
+        db.insertJourney(copenhagen);
+        //this.journeys.add(copenhagen);
+
+        Calendar from2 = Calendar.getInstance();
+        Calendar to2 = Calendar.getInstance();
+        from2.set(2015,10,10);
+        to2.set(2015,10,15);
+        Journey dublin = new Journey("Dublin",from2,to2,2,"desciption 1");
+        db.insertJourney(dublin);
+        //this.journeys.add(dublin);
+
+        Calendar from3 = Calendar.getInstance();
+        Calendar to3 = Calendar.getInstance();
+        from3.set(2014,10,07);
+        to3.set(2014,10,13);
+        Journey prague = new Journey("Prague",from3,to3,3,"desciption 1");
+        db.insertJourney(prague);
+        //this.journeys.add(prague);
+
+
+        String result = db.queryJourneys().toString();
+        System.out.println(result);
     }
 
 }
