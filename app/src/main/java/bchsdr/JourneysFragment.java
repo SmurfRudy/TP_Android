@@ -1,6 +1,8 @@
 package bchsdr;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,26 +34,52 @@ public class JourneysFragment extends Fragment {
         JourneysFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.journeys_fragment, container, false);
         binding.journeysList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         binding.journeysList.setAdapter(new JourneyListAdapter(journeys));
+        binding.setHandler(this);
         return binding.getRoot();
     }
 
     private void initList() {
-        Calendar from = Calendar.getInstance();
-        Calendar to = Calendar.getInstance();
-
-        from.set(2016,10,11);
-        to.set(2016,10,16);
-        Journey copenhagen = new Journey("Copenhagen",from,to);
+        Calendar from1 = Calendar.getInstance();
+        Calendar to1 = Calendar.getInstance();
+        from1.set(2016,10,11);
+        to1.set(2016,10,16);
+        Journey copenhagen = new Journey("Copenhagen",from1,to1);
         this.journeys.add(copenhagen);
 
-        from.set(2015,10,10);
-        to.set(2015,10,15);
-        Journey dublin = new Journey("Dublin",from,to);
+        Calendar from2 = Calendar.getInstance();
+        Calendar to2 = Calendar.getInstance();
+        from2.set(2015,10,10);
+        to2.set(2015,10,15);
+        Journey dublin = new Journey("Dublin",from2,to2);
         this.journeys.add(dublin);
 
-        from.set(2014,10,07);
-        to.set(2014,10,13);
-        Journey prague = new Journey("Prague",from,to);
+        Calendar from3 = Calendar.getInstance();
+        Calendar to3 = Calendar.getInstance();
+        from3.set(2014,10,07);
+        to3.set(2014,10,13);
+        Journey prague = new Journey("Prague",from3,to3);
         this.journeys.add(prague);
     }
+    public void addJourney(View view) {
+
+        JourneyCreate journeyCreate = new JourneyCreate();
+        // Debut du changement de fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        // Pour passer des paramètres on utilise un bundle
+        //Bundle bundle = new Bundle();
+        //Journey journeyTest = journeys.get(0);
+        // On passe un objet (qui doit etre serializable
+        //bundle.putSerializable("journey",journeyTest);
+        // On passe le bundle (avec l'objet) au nouveau fragment
+        //journeyDetail.setArguments(bundle);
+
+        // On remplace le fragment dans le container par le nouveau fragment
+        fragmentTransaction.replace(R.id.fragment_container, journeyCreate);
+        // à comprendre
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }
