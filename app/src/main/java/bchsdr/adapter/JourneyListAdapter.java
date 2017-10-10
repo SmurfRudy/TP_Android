@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import bchsdr.JourneyDetail;
+import bchsdr.JourneysFragment;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyItemBinding;
@@ -38,7 +40,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
         JourneyItemBinding binding = holder.binding;
         Journey journey = journeys.get(position);
         binding.setJvm(new JourneyViewModel(journey));
-        binding.setHandler(new JourneyViewModel(journey));
+        binding.setHandler(new JourneysFragment());
         /*
         binding.name.setText(journey.getName());
         Calendar cal = journey.getFrom();

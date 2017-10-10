@@ -26,39 +26,31 @@ public class JourneyViewModel extends BaseObservable {
 
     private Journey journey;
 
-    public JourneyViewModel()
-    {
+    public JourneyViewModel() {
         this.journey = new Journey();
         this.createtravel = "Create travel";
     }
 
-    public JourneyViewModel(Journey journey)
-    {
+    public JourneyViewModel(Journey journey) {
         this.journey = journey;
         this.createtravel = "Edit travel";
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.journey.getName();
     }
 
-    public String getFrom()
-    {
+    public String getFrom() {
         Calendar cal = this.journey.getFrom();
         DateFormat sdf = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
                 Locale.getDefault());
         return sdf.format(cal.getTime());
     }
-    public String getTo()
-    {
+
+    public String getTo() {
         Calendar cal = this.journey.getTo();
         DateFormat sdf = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
                 Locale.getDefault());
         return sdf.format(cal.getTime());
     }
-    public void onJourneyClick(View view) {
-    }
-
-
-    }
+}

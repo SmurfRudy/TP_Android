@@ -23,6 +23,7 @@ import bchsdr.model.Journey;
 
 public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
+    private JourneysSQLiteHelper journeysSQLiteHelper;
 
     private static final String DB_NAME = "journeys.sqlite";
     private static final int VERSION = 1;
@@ -44,6 +45,11 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
     };
     public JourneysSQLiteHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
+        this.journeysSQLiteHelper = this;
+    }
+
+    public JourneysSQLiteHelper getInstance(){
+        return this;
     }
 
     public long insertJourney(Journey journey) {
