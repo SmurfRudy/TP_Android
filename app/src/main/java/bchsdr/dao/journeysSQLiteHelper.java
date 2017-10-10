@@ -7,6 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import bchsdr.model.Journey;
 
@@ -83,6 +90,37 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query(TABLE_JOURNEYS,
                 null, null, null, null, null, COL_JOURNEYS_ID + " asc");
         return cursor;
+    }
+    public  List<Journey> getDBJourneys() throws ParseException {
+
+        List<Journey> journeys = new ArrayList<>();
+        Cursor cursor = queryJourneys();
+        while (cursor.moveToNext())
+             {
+                 Journey sejour =new Journey();
+                 sejour.set_id(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
+                 sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
+                 sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
+
+
+                 String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
+                 DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+                 Date dateFrom = sourceFormat.parse(start_date);
+                 Calendar from = Calendar.getInstance();
+                 from.set(dateFrom.getYear(),dateFrom.getMonth(),dateFrom.getDate());
+                 sejour.setFrom(from);
+
+
+                 String end_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_ENDDATE));
+                 Date dateTo = sourceFormat.parse(end_date);
+                 Calendar to = Calendar.getInstance();
+                 to.set(dateTo.getYear(),dateTo.getMonth(),dateTo.getDate());
+                 sejour.setFrom(to);
+
+                 journeys.add(sejour);
+            }
+            return journeys;
+
     }
 
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -50,7 +51,7 @@ public class main extends AppCompatActivity {
         JourneyDetail detail = new JourneyDetail();
     }
 
-    public void initdb(){
+    public void initdb() throws ParseException {
         JourneysSQLiteHelper db = new JourneysSQLiteHelper(this);
         Calendar from1 = Calendar.getInstance();
         Calendar to1 = Calendar.getInstance();
@@ -79,6 +80,13 @@ public class main extends AppCompatActivity {
 
         String result = db.queryJourneys().toString();
         System.out.println(result);
+
+        try {
+            List<Journey> journeys = JourneysSQLiteHelper.getInstance().getDBJourneys();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
