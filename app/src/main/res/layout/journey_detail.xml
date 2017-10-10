@@ -49,6 +49,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     />
+                <!--<Button
+                    android:id="@+id/pick_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jvm.start_date}"
+                    android:onClick="showDatePickerDialog" />-->
             </LinearLayout>
             <LinearLayout>
                 <TextView
@@ -65,7 +71,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                 />
+                <!--<Button
+                    android:id="@+id/pick_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jvm.end_date}"
+                    android:onClick="showDatePickerDialog" />-->
             </LinearLayout>
+
         </GridLayout>
     </LinearLayout>
 

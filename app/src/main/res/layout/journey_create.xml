@@ -9,6 +9,10 @@
             name="handler"
             type="bchsdr.JourneyCreate"
             />
+        <variable
+            name="cancelHandler"
+            type="bchsdr.JourneysFragment"
+            />
     </data>
 
     <LinearLayout
@@ -71,6 +75,17 @@
                 android:layout_margin="5dp"
             />
         </LinearLayout>
+        <Button
+            android:id="@+id/buttoncancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{jvm.cancel}"
+            android:onClick="@{cancelHandler.backToInit}"/>
+        <Button
+            android:id="@+id/buttoncreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{jvm.createtravel}" />
     </LinearLayout>
 
 </layout>

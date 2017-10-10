@@ -21,6 +21,8 @@ public class JourneyViewModel extends BaseObservable {
     public String labelName = "Name : ";
     public String labelDeparture = "Departure date : ";
     public String labelReturn = "Return date : ";
+    public String createtravel = "Create Travel";
+    public String cancel = "Cancel ";
 
     private Journey journey;
     public JourneyViewModel(){ this.journey = new Journey(); }

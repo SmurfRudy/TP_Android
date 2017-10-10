@@ -81,5 +81,7 @@ public class JourneysFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+    public void backToInit(View view) {
+    }
 
 }
