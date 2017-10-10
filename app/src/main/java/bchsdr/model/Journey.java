@@ -15,7 +15,9 @@ public class Journey implements Serializable {
     public Journey(){
         name="";
         from = Calendar.getInstance();
+        from.set(Calendar.HOUR_OF_DAY, 0);
         to = Calendar.getInstance();
+        to.set(Calendar.HOUR_OF_DAY, 0);
     }
 
     public Journey (String name, Calendar from, Calendar to) {

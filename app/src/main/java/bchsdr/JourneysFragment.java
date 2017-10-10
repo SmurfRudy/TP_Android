@@ -62,7 +62,7 @@ public class JourneysFragment extends Fragment {
     }
     public void addJourney(View view) {
 
-        JourneyCreate journeyCreate = new JourneyCreate();
+        JourneyDetail journeyDetail = new JourneyDetail();
         // Debut du changement de fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -75,10 +75,11 @@ public class JourneysFragment extends Fragment {
         // On passe le bundle (avec l'objet) au nouveau fragment
         //journeyDetail.setArguments(bundle);
 
+        // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
+        fragmentTransaction.addToBackStack("listJourney");
         // On remplace le fragment dans le container par le nouveau fragment
-        fragmentTransaction.replace(R.id.fragment_container, journeyCreate);
-        // à comprendre
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragment_container, journeyDetail);
+
         fragmentTransaction.commit();
     }
     public void backToInit(View view) {

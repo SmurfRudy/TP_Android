@@ -12,74 +12,82 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/journey_item"
+        android:id="@+id/journey_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_margin="5dp">
 
-        <TextView
-            android:id="@+id/label_name"
-            android:text="@{jvm.name}"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <android.support.design.widget.TextInputEditText
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <GridLayout
-            style="?android:attr/listSeparatorTextViewStyle"
-            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/label_name_new"
+                android:text="@{jvm.labelName}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <LinearLayout>
+            android:layout_height="wrap_content">
                 <TextView
-                android:id="@+id/label_start_date"
+                android:id="@+id/label_start_date_new"
                 android:text="@{jvm.labelDeparture}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
                 <TextView
-                    android:id="@+id/start_date"
+                    android:id="@+id/start_date_new"
                     android:text="@{jvm.from}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     />
-                <!--<Button
-                    android:id="@+id/pick_start_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{jvm.start_date}"
-                    android:onClick="showDatePickerDialog" />-->
-            </LinearLayout>
-            <LinearLayout>
-                <TextView
-                    android:id="@+id/label_end_date"
-                    android:text="@{jvm.labelReturn}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    />
-                <TextView
-                    android:id="@+id/end_date"
-                    android:text="@{jvm.to}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/label_end_date_new"
+                android:text="@{jvm.labelReturn}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 />
-                <!--<Button
-                    android:id="@+id/pick_end_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{jvm.end_date}"
-                    android:onClick="showDatePickerDialog" />-->
-            </LinearLayout>
-
-        </GridLayout>
+            <TextView
+                android:id="@+id/end_date_new"
+                android:text="@{jvm.to}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/buttoncancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{jvm.cancel}"
+                android:onClick="@{handler.close}"/>
+            <Button
+                android:id="@+id/buttoncreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{jvm.createtravel}" />
+        </LinearLayout>
     </LinearLayout>
 
 </layout>
