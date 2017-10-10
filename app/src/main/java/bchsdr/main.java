@@ -2,6 +2,7 @@ package bchsdr;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bchsdr.adapter.JourneyListAdapter;
+import bchsdr.dao.JourneysSQLiteHelper;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.MainActivityBinding;
@@ -27,7 +29,11 @@ public class main extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+
+        JourneysSQLiteHelper db = new JourneysSQLiteHelper(this);
+
         this.showStartup();
+
     }
 
     public void showStartup() {

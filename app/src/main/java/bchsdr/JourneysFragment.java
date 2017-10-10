@@ -3,6 +3,7 @@ package bchsdr;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import bchsdr.adapter.JourneyListAdapter;
+import bchsdr.dao.JourneysSQLiteHelper;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneysFragmentBinding;
@@ -39,26 +41,34 @@ public class JourneysFragment extends Fragment {
     }
 
     private void initList() {
+        JourneysSQLiteHelper db = null;
         Calendar from1 = Calendar.getInstance();
         Calendar to1 = Calendar.getInstance();
         from1.set(2016,10,11);
         to1.set(2016,10,16);
-        Journey copenhagen = new Journey("Copenhagen",from1,to1);
+        Journey copenhagen = new Journey("Copenhagen",from1,to1,1,"desciption 1");
+        db.insertJourney(copenhagen);
         this.journeys.add(copenhagen);
 
         Calendar from2 = Calendar.getInstance();
         Calendar to2 = Calendar.getInstance();
         from2.set(2015,10,10);
         to2.set(2015,10,15);
-        Journey dublin = new Journey("Dublin",from2,to2);
+        Journey dublin = new Journey("Dublin",from2,to2,2,"desciption 1");
+        db.insertJourney(dublin);
         this.journeys.add(dublin);
 
         Calendar from3 = Calendar.getInstance();
         Calendar to3 = Calendar.getInstance();
         from3.set(2014,10,07);
         to3.set(2014,10,13);
-        Journey prague = new Journey("Prague",from3,to3);
+        Journey prague = new Journey("Prague",from3,to3,3,"desciption 1");
+        db.insertJourney(prague);
         this.journeys.add(prague);
+
+
+        String result = db.queryJourneys().toString();
+        System.out.println(result);
     }
     public void addJourney(View view) {
 
