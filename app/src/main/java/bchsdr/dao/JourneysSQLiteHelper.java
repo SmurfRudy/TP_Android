@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import bchsdr.model.Journey;
 
@@ -23,7 +24,7 @@ import bchsdr.model.Journey;
 
 public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
-    private JourneysSQLiteHelper journeysSQLiteHelper;
+    private static JourneysSQLiteHelper journeysSQLiteHelper;
 
     private static final String DB_NAME = "journeys.sqlite";
     private static final int VERSION = 1;
@@ -45,19 +46,25 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
     };
     public JourneysSQLiteHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
-        this.journeysSQLiteHelper = this;
     }
 
-    public JourneysSQLiteHelper getInstance(){
-        return this;
+    public static JourneysSQLiteHelper getInstance(Context context){
+        if (journeysSQLiteHelper == null){
+            journeysSQLiteHelper =new JourneysSQLiteHelper(context.getApplicationContext());
+        }
+        return journeysSQLiteHelper;
+    }
+    String toStringDate(Calendar cal){
+        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(cal.getTime());
     }
 
     public long insertJourney(Journey journey) {
         ContentValues cv = new ContentValues();
         cv.put(COL_JOURNEYS_ID, journey.get_id());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
-        cv.put(COL_JOURNEYS_STARTDATE, journey.getFrom().toString());
-        cv.put(COL_JOURNEYS_ENDDATE, journey.getTo().toString());
+        cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
+        cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
         cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         return getWritableDatabase().insertOrThrow(TABLE_JOURNEYS, null, cv);
@@ -81,8 +88,8 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_JOURNEYS_ID, journey.get_id());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
-        cv.put(COL_JOURNEYS_STARTDATE, journey.getFrom().toString());
-        cv.put(COL_JOURNEYS_ENDDATE, journey.getTo().toString());
+        cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
+        cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
         cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         int i = db.update(TABLE_JOURNEYS, cv, selection, selectionArgs);
@@ -90,6 +97,8 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
         return i;
     }
+
+
 
     public Cursor queryJourneys() {
         // equivalent to "select * from table_journeys order by id asc"
