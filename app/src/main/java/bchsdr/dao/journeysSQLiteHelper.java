@@ -14,7 +14,7 @@ import bchsdr.model.Journey;
  * Created by Rudy_DEAL on 10/10/2017.
  */
 
-public class journeysSQLiteHelper extends SQLiteOpenHelper {
+public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
 
     private static final String DB_NAME = "journeys.sqlite";
@@ -35,7 +35,7 @@ public class journeysSQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         //à surcharger
     };
-    public journeysSQLiteHelper(Context context) {
+    public JourneysSQLiteHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
     }
 
