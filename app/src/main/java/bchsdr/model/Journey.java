@@ -1,5 +1,6 @@
 package bchsdr.model;
 
+import java.io.Closeable;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -17,7 +18,9 @@ public class Journey implements Serializable {
     public Journey(){
         name="";
         from = Calendar.getInstance();
+        from.set(Calendar.HOUR_OF_DAY, 0);
         to = Calendar.getInstance();
+        to.set(Calendar.HOUR_OF_DAY, 0);
         description="";
         _id = -1;
     }
