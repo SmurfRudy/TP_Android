@@ -8,20 +8,29 @@ import java.util.Calendar;
  */
 
 public class Journey implements Serializable {
+    private int _id;
     private String name;
     private Calendar from;
     private Calendar to;
+    private String description;
 
     public Journey(){
         name="";
         from = Calendar.getInstance();
         to = Calendar.getInstance();
+        description="";
+        _id = -1;
     }
 
-    public Journey (String name, Calendar from, Calendar to) {
+
+
+
+    public Journey (String name, Calendar from, Calendar to, int _id, String description) {
         this.name = name;
         this.from = from;
         this.to = to;
+        this._id = _id;
+        this.description =description;
     }
 
     public String getName() {
@@ -46,5 +55,21 @@ public class Journey implements Serializable {
 
     public void setTo(Calendar to) {
         this.to = to;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
