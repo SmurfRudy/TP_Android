@@ -32,7 +32,7 @@ public class JourneysFragment extends Fragment {
         JourneysFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.journeys_fragment, container, false);
         binding.journeysList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         binding.journeysList.setAdapter(new JourneyListAdapter(journeys));
-
+        binding.setHandler(this);
         return binding.getRoot();
     }
 
