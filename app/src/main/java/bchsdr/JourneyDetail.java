@@ -57,8 +57,13 @@ public class JourneyDetail extends Fragment {
         // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
         fragmentTransaction.addToBackStack(null);
         // On remplace le fragment dans le container par le nouveau fragment
-        fragmentTransaction.add(R.id.fragment_container, journeysFragment);
+        //fragmentTransaction.add(R.id.fragment_container, journeysFragment);
+        fragmentTransaction.remove(this);
 
         fragmentTransaction.commit();
+    }
+
+    public void saveJourney (View view) {
+        System.out.print(view);
     }
 }
