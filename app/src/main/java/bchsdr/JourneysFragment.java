@@ -1,5 +1,6 @@
 package bchsdr;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -35,7 +36,7 @@ public class JourneysFragment extends Fragment {
         initList();
         JourneysFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.journeys_fragment, container, false);
         binding.journeysList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-        binding.journeysList.setAdapter(new JourneyListAdapter(journeys));
+        binding.journeysList.setAdapter(new JourneyListAdapter(journeys, getActivity()));
         binding.setHandler(this);
         return binding.getRoot();
     }
@@ -54,40 +55,11 @@ public class JourneysFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        // Pour passer des paramètres on utilise un bundle
-        //Bundle bundle = new Bundle();
-        //Journey journeyTest = journeys.get(0);
-        // On passe un objet (qui doit etre serializable
-        //bundle.putSerializable("journey",journeyTest);
-        // On passe le bundle (avec l'objet) au nouveau fragment
-        //journeyDetail.setArguments(bundle);
 
         // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
         fragmentTransaction.addToBackStack("listJourney");
         // On remplace le fragment dans le container par le nouveau fragment
-        fragmentTransaction.add(R.id.fragment_container, journeyDetail);
-
-        fragmentTransaction.commit();
-    }
-
-    public void onJourneyClick(View view) {
-        JourneyDetail journeyDetail = new JourneyDetail();
-        // Debut du changement de fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        // Pour passer des paramètres on utilise un bundle
-        Bundle bundle = new Bundle();
-        Journey journeyTest = journeys.get(0);
-        // On passe un objet (qui doit etre serializable
-        bundle.putSerializable("journey",journeyTest);
-        // On passe le bundle (avec l'objet) au nouveau fragment
-        journeyDetail.setArguments(bundle);
-
-        // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
-        fragmentTransaction.addToBackStack("listJourney");
-        // On remplace le fragment dans le container par le nouveau fragment
-        fragmentTransaction.add(R.id.fragment_container, journeyDetail);
+        fragmentTransaction.replace(R.id.fragment_container, journeyDetail);
 
         fragmentTransaction.commit();
     }
