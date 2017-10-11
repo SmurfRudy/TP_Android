@@ -106,6 +106,7 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
                 null, null, null, null, null, COL_JOURNEYS_ID + " asc");
         return cursor;
     }
+
     public  List<Journey> getDBJourneys() throws ParseException {
 
         List<Journey> journeys = new ArrayList<>();
@@ -136,6 +137,15 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
             }
             return journeys;
 
+    }
+
+    public void edit_journey(Journey journey) {
+        if (journey.get_id() < 0) {
+            insertJourney(journey);
+        }
+        else{
+            updateJourney(journey);
+        }
     }
 
 }
