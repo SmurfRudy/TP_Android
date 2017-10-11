@@ -63,7 +63,7 @@ public class JourneyDetail extends Fragment {
         Calendar test1 =null, test2 =null;
         String description = "TO DO";
         Journey newJourney =new Journey(name, test1, test2, id, description);
-        edit_journey(newJourney);
+        JourneysSQLiteHelper.getInstance(getActivity()).edit_journey(newJourney);
         this.close(getView());
 
     }
