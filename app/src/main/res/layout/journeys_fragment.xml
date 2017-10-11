@@ -23,8 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:background="@drawable/fab_add"
-            android:onClick="@{handler.addJourney}"
-            app:backgroundTint="@color/colorAccent"
-            app:backgroundTintMode="src_over" />
+            android:onClick="@{handler.addJourney}"/>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

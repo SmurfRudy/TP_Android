@@ -1,5 +1,6 @@
 package bchsdr.adapter;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +25,10 @@ import bchsdr.viewModel.JourneyViewModel;
 
 public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.BindingHolder> {
     private List<Journey> journeys;
-    public JourneyListAdapter(List<Journey> journeys) {
+    private Activity activity;
+    public JourneyListAdapter(List<Journey> journeys, Activity activity) {
         this.journeys = journeys;
+        this.activity = activity;
     }
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,18 +42,8 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
             position) {
         JourneyItemBinding binding = holder.binding;
         Journey journey = journeys.get(position);
-        binding.setJvm(new JourneyViewModel(journey));
-        binding.setHandler(new JourneysFragment());
-        /*
-        binding.name.setText(journey.getName());
-        Calendar cal = journey.getFrom();
-        DateFormat sdf =
-                SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
-                        Locale.getDefault());
-        binding.startDate.setText(sdf.format(cal.getTime()));
-        cal = journey.getTo();
-        binding.endDate.setText(sdf.format(cal.getTime()));
-        */
+        binding.setJvm(new JourneyViewModel(journey, activity));
+        binding.setHandler(new JourneyViewModel(journey, activity));
     }
 
     @Override
