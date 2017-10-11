@@ -46,12 +46,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
-                <TextView
+                <EditText
                     android:id="@+id/start_date_new"
                     android:text="@{jvm.from}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:onClick="@{handler.showDatePickerDialog}"
                     />
         </LinearLayout>
         <LinearLayout
@@ -65,12 +66,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/end_date_new"
                 android:text="@{jvm.to}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="@{handler.showDatePickerDialog}"
             />
         </LinearLayout>
         <LinearLayout

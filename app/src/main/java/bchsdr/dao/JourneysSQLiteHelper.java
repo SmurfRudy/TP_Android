@@ -55,13 +55,14 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
         return journeysSQLiteHelper;
     }
     String toStringDate(Calendar cal){
+        //DateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
         DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(cal.getTime());
     }
 
     public long insertJourney(Journey journey) {
         ContentValues cv = new ContentValues();
-        cv.put(COL_JOURNEYS_ID, journey.get_id());
+        //cv.put(COL_JOURNEYS_ID, journey.get_id());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
@@ -120,6 +121,7 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
 
                  String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
+                 //DateFormat sourceFormat = new SimpleDateFormat("MMM dd, yyyy");
                  DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
                  Date dateFrom = sourceFormat.parse(start_date);
                  Calendar from = Calendar.getInstance();
