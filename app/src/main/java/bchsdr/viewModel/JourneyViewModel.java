@@ -39,6 +39,9 @@ public class JourneyViewModel extends BaseObservable {
     public String getName() {
         return this.journey.getName();
     }
+    public int getId() {
+        return this.journey.get_id();
+    }
 
     public String getFrom() {
         Calendar cal = this.journey.getFrom();

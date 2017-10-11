@@ -31,7 +31,9 @@
                 android:layout_height="wrap_content"/>
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/name_new"
+                android:text="@{jvm.name}"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -86,8 +88,8 @@
                 android:id="@+id/buttoncreate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{jvm.createtravel}" />
+                android:text="@{jvm.createtravel}"
+                android:onClick="@{()-> handler.saveJourney(jvm.id ,nameNew.getText().toString(), startDateNew.getText().toString(), endDateNew.getText().toString())}"/>
         </LinearLayout>
     </LinearLayout>
-
 </layout>

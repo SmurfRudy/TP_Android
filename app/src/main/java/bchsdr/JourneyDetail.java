@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Calendar;
+
+import bchsdr.dao.JourneysSQLiteHelper;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyDetailBinding;
@@ -63,7 +66,12 @@ public class JourneyDetail extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void saveJourney (View view) {
-        System.out.print(view);
+    public void saveJourney (int id, String name, String start_date, String end_date) {
+
+        Calendar test1 =null, test2 =null;
+        String description = "TO DO";
+        Journey newJourney =new Journey(name, test1, test2, id, description);
+        edit_journey(newJourney);
+        this.close(getView());
     }
 }
