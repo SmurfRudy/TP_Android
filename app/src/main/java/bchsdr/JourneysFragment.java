@@ -41,9 +41,11 @@ public class JourneysFragment extends Fragment {
     }
 
     private void initList() {
-
-        //String result = db.queryJourneys().toString();
-        //System.out.println(result);
+        try {
+            this.journeys = JourneysSQLiteHelper.getInstance(this.getActivity()).getDBJourneys();
+        }catch (Exception e) {
+            //TODO gérer l'exception
+        }
     }
     public void addJourney(View view) {
 
