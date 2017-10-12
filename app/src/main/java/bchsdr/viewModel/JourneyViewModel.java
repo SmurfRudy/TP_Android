@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import java.text.DateFormat;
