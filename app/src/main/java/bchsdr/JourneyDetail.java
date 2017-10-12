@@ -1,5 +1,7 @@
 package bchsdr;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,10 +13,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import bchsdr.adapter.JourneyNoteListAdapter;
 import bchsdr.dao.JourneysSQLiteHelper;
@@ -68,14 +81,29 @@ public class JourneyDetail extends Fragment {
         fragmentTransaction.commit();
     }
 
+    private Calendar stringF2ToCal(String stringF2){
+        DateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime( sdf.parse(stringF2));
+        } catch (ParseException e) {
+           ;
+        }
+        return cal;
+    }
+
 
     public void saveJourney (int id, String name, String start_date, String end_date) {
+        try{
+            String description = "TO DO";
+            Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id, description);
+            JourneysSQLiteHelper.getInstance(getActivity()).edit_journey(newJourney);
+            this.close(getView());
+        }
 
-        Calendar test1 =null, test2 =null;
-        String description = "TO DO";
-        Journey newJourney =new Journey(name, test1, test2, id, description);
-        JourneysSQLiteHelper.getInstance(getActivity()).edit_journey(newJourney);
-        this.close(getView());
+        catch (Exception e){
+            this.close(getView());
+        }
 
     }
 
@@ -90,6 +118,49 @@ public class JourneyDetail extends Fragment {
 
     public void getNotes(){
         this.notes = new ArrayList<Note>();
+    }
+
+    public void showDatePickerDialog(View view){
+        final EditText editText = (EditText) view;
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                Calendar calendar = new GregorianCalendar();
+                calendar.set(year, month, day);
+                DateFormat sdf = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
+                        Locale.getDefault());
+                String selectedDate = sdf.format(calendar.getTime());
+                editText.setText(selectedDate);
+                //editText.setText(day + "/" + month +"/"+ year);
+            }
+        };
+        Calendar calendar = Calendar.getInstance();
+        if (!editText.getText().toString().equals("")) {
+                calendar = convertToCalendar(editText.getText().toString());
+
+        }
+        DatePickerDialog pickerDialog = new DatePickerDialog(editText.getContext(), dateSetListener,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        pickerDialog.show();
+    }
+
+    /*String toStringDate(Calendar cal){
+        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(cal.getTime());
+    }*/
+
+    Calendar convertToCalendar (String date){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        try {
+            cal.setTime(sdf.parse(date));
+        } catch (ParseException e2) {
+            System.out.println("ERROR -- Date Conversion");
+        }
+
+
+        return cal;
     }
 }
 

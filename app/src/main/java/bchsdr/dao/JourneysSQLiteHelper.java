@@ -26,7 +26,7 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
     private static JourneysSQLiteHelper journeysSQLiteHelper;
 
-    private static final String DB_NAME = "journeys.sqlite";
+    private static final String DB_NAME = "TP_android.sqlite";
     private static final int VERSION = 1;
 
     private static final String TABLE_JOURNEYS = "journeys";
@@ -55,13 +55,14 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
         return journeysSQLiteHelper;
     }
     String toStringDate(Calendar cal){
+        //DateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
         DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(cal.getTime());
     }
 
     public long insertJourney(Journey journey) {
         ContentValues cv = new ContentValues();
-        cv.put(COL_JOURNEYS_ID, journey.get_id());
+        //cv.put(COL_JOURNEYS_ID, journey.get_id());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
@@ -120,22 +121,24 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
 
                  String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
-                 DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
-                 Date dateFrom = sourceFormat.parse(start_date);
-                 Calendar from = Calendar.getInstance();
-                 from.set(dateFrom.getYear(),dateFrom.getMonth(),dateFrom.getDate());
-                 sejour.setFrom(from);
+                 sejour.setFrom(calFromString(start_date));
 
 
                  String end_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_ENDDATE));
-                 Date dateTo = sourceFormat.parse(end_date);
-                 Calendar to = Calendar.getInstance();
-                 to.set(dateTo.getYear(),dateTo.getMonth(),dateTo.getDate());
-                 sejour.setFrom(to);
+                 sejour.setTo(calFromString(end_date));
 
                  journeys.add(sejour);
             }
             return journeys;
+
+    }
+    private Calendar calFromString(String date){
+        Calendar cal = Calendar.getInstance();
+        int day = Integer.parseInt(date.substring(0,2));
+        int month = Integer.parseInt(date.substring(3,5));
+        int year = Integer.parseInt(date.substring(6,10));
+        cal.set(year,month - 1 ,day);
+        return cal;
 
     }
 
