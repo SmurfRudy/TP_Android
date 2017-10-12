@@ -4,15 +4,20 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +26,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import bchsdr.dao.JourneysDAO;
+
+import bchsdr.adapter.JourneyNoteListAdapter;
+import bchsdr.maps.MapsActivity;
 import bchsdr.model.Journey;
+import bchsdr.model.Note;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyDetailBinding;
 import bchsdr.viewModel.JourneyViewModel;
@@ -32,7 +41,7 @@ import bchsdr.viewModel.JourneyViewModel;
 
 public class JourneyDetail extends Fragment {
     private Journey journey;
-
+    private List<Note> notes;
 
 
     @Nullable
@@ -48,6 +57,10 @@ public class JourneyDetail extends Fragment {
             binding.setJvm(new JourneyViewModel(getActivity()));
         }
         binding.setHandler(this);
+
+        getNotes();
+        binding.journeyNoteList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+        binding.journeyNoteList.setAdapter(new JourneyNoteListAdapter(notes, getActivity()));
         return binding.getRoot();
     }
 
@@ -91,6 +104,19 @@ public class JourneyDetail extends Fragment {
 
     }
 
+    public void addNote(View view) {
+
+    }
+
+    public void showMap(View view) {
+        Intent intent = new Intent(getActivity(), MapsActivity.class);
+        getActivity().startActivity(intent);
+    }
+
+    public void getNotes(){
+        this.notes = new ArrayList<Note>();
+    }
+
     public void showDatePickerDialog(View view){
         final EditText editText = (EditText) view;
 
@@ -128,5 +154,6 @@ public class JourneyDetail extends Fragment {
 
         return cal;
     }
-
 }
+
+

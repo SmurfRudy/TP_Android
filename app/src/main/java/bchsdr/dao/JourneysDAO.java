@@ -1,7 +1,6 @@
 package bchsdr.dao;
 import android.content.Context;
 
-import bchsdr.dao.ConnectionSQLiteHelper;
 import java.text.ParseException;
 import java.util.List;
 
