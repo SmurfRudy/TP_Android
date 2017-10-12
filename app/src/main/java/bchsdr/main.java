@@ -69,9 +69,9 @@ public class main extends AppCompatActivity {
         Journey prague = new Journey("Prague",from3,to3,3,"desciption 1");
 
         try {
-            db.updateJourney(copenhagen);
-            db.updateJourney(dublin);
-            db.updateJourney(prague);
+            //db.updateJourney(copenhagen);
+            //db.updateJourney(dublin);
+            //db.updateJourney(prague);
         }catch (Exception e) {
             //TODO gérer l'exception
         }

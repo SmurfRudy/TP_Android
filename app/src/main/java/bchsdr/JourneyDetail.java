@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -68,15 +69,22 @@ public class JourneyDetail extends Fragment {
         fragmentTransaction.commit();
     }
 
+    private Calendar stringF2ToCal(String stringF2){
+        DateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime( sdf.parse(stringF2));
+        } catch (ParseException e) {
+           ;
+        }
+        return cal;
+    }
+
 
     public void saveJourney (int id, String name, String start_date, String end_date) {
         try{
-            Calendar test1 = Calendar.getInstance();
-            Calendar test2 = Calendar.getInstance();
-            test1.set(2015,10,10);
-            test2.set(2015,10,15);
             String description = "TO DO";
-            Journey newJourney =new Journey(name, test1, test2, id, description);
+            Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id, description);
             JourneysSQLiteHelper.getInstance(getActivity()).edit_journey(newJourney);
             this.close(getView());
         }
@@ -99,6 +107,7 @@ public class JourneyDetail extends Fragment {
                         Locale.getDefault());
                 String selectedDate = sdf.format(calendar.getTime());
                 editText.setText(selectedDate);
+                //editText.setText(day + "/" + month +"/"+ year);
             }
         };
         Calendar calendar = Calendar.getInstance();
