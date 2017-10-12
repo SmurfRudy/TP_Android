@@ -1,10 +1,8 @@
 package bchsdr;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,11 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import bchsdr.adapter.JourneyListAdapter;
-import bchsdr.dao.JourneysSQLiteHelper;
+import bchsdr.dao.JourneysDAO;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneysFragmentBinding;
@@ -43,7 +40,7 @@ public class JourneysFragment extends Fragment {
 
     private void initList() {
         try {
-            this.journeys = JourneysSQLiteHelper.getInstance(this.getActivity()).getDBJourneys();
+            this.journeys = JourneysDAO.getInstance().getDBJourneys(getActivity());
         }catch (Exception e) {
             //TODO gérer l'exception
         }

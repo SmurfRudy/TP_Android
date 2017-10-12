@@ -2,19 +2,14 @@ package bchsdr;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-import bchsdr.adapter.JourneyListAdapter;
-import bchsdr.dao.JourneysSQLiteHelper;
+import bchsdr.dao.JourneysDAO;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.MainActivityBinding;
@@ -47,7 +42,7 @@ public class main extends AppCompatActivity {
     }
 
     public void initdb() {
-        JourneysSQLiteHelper db = JourneysSQLiteHelper.getInstance(this);
+        JourneysDAO db = JourneysDAO.getInstance();
         Calendar from1 = Calendar.getInstance();
         Calendar to1 = Calendar.getInstance();
         from1.set(2016,10,11);

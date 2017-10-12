@@ -1,7 +1,6 @@
 package bchsdr;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,18 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import bchsdr.dao.JourneysSQLiteHelper;
+import bchsdr.dao.JourneysDAO;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyDetailBinding;
@@ -85,7 +81,7 @@ public class JourneyDetail extends Fragment {
         try{
             String description = "TO DO";
             Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id, description);
-            JourneysSQLiteHelper.getInstance(getActivity()).edit_journey(newJourney);
+            JourneysDAO.getInstance().edit_journey(getActivity(),newJourney);
             this.close(getView());
         }
 
@@ -119,11 +115,6 @@ public class JourneyDetail extends Fragment {
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         pickerDialog.show();
     }
-
-    /*String toStringDate(Calendar cal){
-        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(cal.getTime());
-    }*/
 
     Calendar convertToCalendar (String date){
         Calendar cal = Calendar.getInstance();

@@ -11,24 +11,31 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import bchsdr.model.Journey;
 
 /**
- * Created by Rudy_DEAL on 10/10/2017.
+ * Created by Rudy_DEAL on 12/10/2017.
  */
 
-public class JourneysSQLiteHelper extends SQLiteOpenHelper {
+public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
-    private static JourneysSQLiteHelper journeysSQLiteHelper;
-
+    //Initialisation de la base
+    private static ConnectionSQLiteHelper journeysSQLiteHelper;
     private static final String DB_NAME = "TP_android.sqlite";
     private static final int VERSION = 1;
 
+    //Fonction et procédure de la base
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        //à surcharger
+    };
+    public ConnectionSQLiteHelper(Context context) {
+        super(context, DB_NAME, null, VERSION);
+    }
+
+
+    //Initialisation de la Table JOURNEY
     private static final String TABLE_JOURNEYS = "journeys";
     private static final String COL_JOURNEYS_ID = "_id";
     private static final String COL_JOURNEYS_DESTINATION = "destination";
@@ -36,21 +43,20 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
     private static final String COL_JOURNEYS_ENDDATE = "end_date";
     private static final String COL_JOURNEYS_DESCRIPTION = "description";
 
+
+    //Creation de la Base
     public void onCreate(SQLiteDatabase db){
         db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL, description TEXT)");
         // some sample data
 
     };
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        //à surcharger
-    };
-    public JourneysSQLiteHelper(Context context) {
-        super(context, DB_NAME, null, VERSION);
-    }
 
-    public static JourneysSQLiteHelper getInstance(Context context){
+
+    //Fonction pour la partie Journeys
+
+    public static ConnectionSQLiteHelper getInstance(Context context){
         if (journeysSQLiteHelper == null){
-            journeysSQLiteHelper =new JourneysSQLiteHelper(context.getApplicationContext());
+            journeysSQLiteHelper =new ConnectionSQLiteHelper(context.getApplicationContext());
         }
         return journeysSQLiteHelper;
     }
@@ -108,28 +114,28 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public  List<Journey> getDBJourneys() throws ParseException {
+    public List<Journey> getDBJourneysDAO() throws ParseException {
 
         List<Journey> journeys = new ArrayList<>();
         Cursor cursor = queryJourneys();
         while (cursor.moveToNext())
-             {
-                 Journey sejour =new Journey();
-                 sejour.set_id(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
-                 sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
-                 sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
+        {
+            Journey sejour =new Journey();
+            sejour.set_id(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
+            sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
+            sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
 
 
-                 String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
-                 sejour.setFrom(calFromString(start_date));
+            String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
+            sejour.setFrom(calFromString(start_date));
 
 
-                 String end_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_ENDDATE));
-                 sejour.setTo(calFromString(end_date));
+            String end_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_ENDDATE));
+            sejour.setTo(calFromString(end_date));
 
-                 journeys.add(sejour);
-            }
-            return journeys;
+            journeys.add(sejour);
+        }
+        return journeys;
 
     }
     private Calendar calFromString(String date){
@@ -142,13 +148,8 @@ public class JourneysSQLiteHelper extends SQLiteOpenHelper {
 
     }
 
-    public void edit_journey(Journey journey) {
-        if (journey.get_id() < 0) {
-            insertJourney(journey);
-        }
-        else{
-            updateJourney(journey);
-        }
-    }
+
+
+
 
 }
