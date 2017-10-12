@@ -24,7 +24,7 @@ import bchsdr.tp_android_1.databinding.MainActivityBinding;
  * Created by Maxime on 09/10/2017.
  */
 
-public class main extends AppCompatActivity {
+public class Main extends AppCompatActivity {
     private MainActivityBinding binding;
 
 
@@ -69,9 +69,9 @@ public class main extends AppCompatActivity {
         Journey prague = new Journey("Prague",from3,to3,3,"desciption 1");
 
         try {
-            db.updateJourney(copenhagen);
-            db.updateJourney(dublin);
-            db.updateJourney(prague);
+            db.insertJourney(copenhagen);
+            db.insertJourney(dublin);
+            db.insertJourney(prague);
         }catch (Exception e) {
             //TODO gérer l'exception
         }

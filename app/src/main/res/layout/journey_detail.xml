@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center"
         android:layout_margin="5dp">
 
         <LinearLayout
@@ -73,6 +72,16 @@
                 android:layout_margin="5dp"
             />
         </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/journey_note_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{jvm.labelAddNote}"
+            android:onClick="@{handler.addNote}"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

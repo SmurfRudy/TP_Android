@@ -1,6 +1,7 @@
 package bchsdr.viewModel;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import bchsdr.JourneyDetail;
+import bchsdr.maps.MapsActivity;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 
@@ -26,6 +28,7 @@ public class JourneyViewModel extends BaseObservable {
     public String labelReturn = "Return date : ";
     public String createtravel = "";
     public String cancel = "Cancel";
+    public String labelAddNote = "Add note";
 
     private Journey journey;
 
@@ -73,7 +76,7 @@ public class JourneyViewModel extends BaseObservable {
         // Pour passer des paramètres on utilise un bundle
         Bundle bundle = new Bundle();
         // On passe un objet (qui doit etre serializable
-        bundle.putSerializable("journey",journey);
+        bundle.putSerializable("journey", journey);
         // On passe le bundle (avec l'objet) au nouveau fragment
         journeyDetail.setArguments(bundle);
 
