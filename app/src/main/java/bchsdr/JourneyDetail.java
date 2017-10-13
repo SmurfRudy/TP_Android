@@ -80,8 +80,7 @@ public class JourneyDetail extends Fragment {
 
     public void saveJourney (int id, String name, String start_date, String end_date) {
         try{
-            String description = "TO DO";
-            Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id, description);
+            Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id);
             JourneysDAO.getInstance().editJourney(getActivity(),newJourney);
             this.close(getView());
         }

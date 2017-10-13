@@ -49,7 +49,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     private static final String COL_JOURNEYS_DESTINATION = "destination";
     private static final String COL_JOURNEYS_STARTDATE   = "start_date";
     private static final String COL_JOURNEYS_ENDDATE = "end_date";
-    private static final String COL_JOURNEYS_DESCRIPTION = "description";
 
     //Initialisation de la Table NOTES
     private static final String TABLE_NOTES = "notes";
@@ -65,7 +64,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     //Creation de la Base
     public void onCreate(SQLiteDatabase db){
         //creation de la table Journeys
-        db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL, description TEXT)");
+        db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL)");
         //creation de la table notes
         db.execSQL("create table notes (id_notes INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, id_journey TEXT NOT NULL, description TEXT NOT NULL, picture_location TEXT NOT NULL, latitude TEXT, longitude TEXT)");
 
@@ -79,7 +78,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
-        cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         return getWritableDatabase().insertOrThrow(TABLE_JOURNEYS, null, cv);
     }
@@ -104,7 +102,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
-        cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         int i = db.update(TABLE_JOURNEYS, cv, selection, selectionArgs);
         //db.close();
@@ -130,7 +127,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
             Journey sejour =new Journey();
             sejour.setId(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
             sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
-            sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
 
 
             String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
