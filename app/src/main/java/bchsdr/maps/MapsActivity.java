@@ -33,7 +33,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (bundle != null) {
             this.myPosition = new LatLng((Double) bundle.getSerializable("latitude"), (Double) bundle.getSerializable("longitude"));
             this.note = (Note) bundle.getSerializable("note");
-            markerPosition = new LatLng(note.getLatitude(),note.getLongitude());
+            if (note.getLatitude() != null && note.getLongitude() != null) {
+                markerPosition = new LatLng(note.getLatitude(), note.getLongitude());
+            }
         }
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -65,10 +67,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerPosition = latLng;
             }
         });
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 12));
         if (markerPosition != null) {
             mMap.addMarker(new MarkerOptions().position(markerPosition).title("Note Marker"));
+            myPosition = markerPosition;
         }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 12));
     }
 
     public void saveLocation(View view) {

@@ -71,8 +71,8 @@ public class JourneyViewModel extends BaseObservable {
     public void onJourneyClick(View view) {
         JourneyDetail journeyDetail = new JourneyDetail();
         // Debut du changement de fragment
-        android.app.FragmentManager fragmentManager = activity.getFragmentManager();
-        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         // Pour passer des paramètres on utilise un bundle
         Bundle bundle = new Bundle();

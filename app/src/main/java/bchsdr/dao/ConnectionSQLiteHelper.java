@@ -164,8 +164,8 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
-        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
-        cv.put(COL_NOTES_PICTURE, note.getPicture_location());
+        cv.put(COL_NOTES_IDJOURNEY, note.getIdJourney());
+        cv.put(COL_NOTES_PICTURE, note.getPictureLocation());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
         //TODO Parser les floats en String
@@ -184,14 +184,14 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_NOTES_ID + " = ?";
 
-        String idString = Integer.toString(note.getId_notes());
+        String idString = Integer.toString(note.getIdNotes());
         String[] selectionArgs = { idString };
 
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
-        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
-        cv.put(COL_NOTES_PICTURE, note.getPicture_location());
+        cv.put(COL_NOTES_IDJOURNEY, note.getIdJourney());
+        cv.put(COL_NOTES_PICTURE, note.getPictureLocation());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
 
@@ -214,12 +214,12 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = queryNotes(idJourney);
         while (cursor.moveToNext())
         {
-            Note note =new Note();
-            note.setId_notes(cursor.getInt(cursor.getColumnIndex(COL_NOTES_ID)));
+            Note note =new Note(-1);
+            note.setIdNotes(cursor.getInt(cursor.getColumnIndex(COL_NOTES_ID)));
             note.setTitle(cursor.getString(cursor.getColumnIndex(COL_NOTES_TITLE)));
             note.setDescription(cursor.getString(cursor.getColumnIndex(COL_NOTES_DESCRIPTION)));
-            note.setId_journey(cursor.getInt(cursor.getColumnIndex(COL_NOTES_IDJOURNEY)));
-            note.setPicture_location(cursor.getString(cursor.getColumnIndex(COL_NOTES_PICTURE)));
+            note.setIdJourney(cursor.getInt(cursor.getColumnIndex(COL_NOTES_IDJOURNEY)));
+            note.setPictureLocation(cursor.getString(cursor.getColumnIndex(COL_NOTES_PICTURE)));
             note.setLatitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LATITUDE))));
             note.setLongitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LONGITUDE))));
 

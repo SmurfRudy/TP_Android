@@ -18,7 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import bchsdr.dao.JourneysDAO;
+import bchsdr.dao.NotesDAO;
 import bchsdr.maps.MapsActivity;
+import bchsdr.model.Journey;
 import bchsdr.model.Note;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.JourneyNoteDetailBinding;
@@ -57,6 +60,15 @@ public class JourneyNote extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume(){
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            this.note = (Note) bundle.getSerializable("note");
+        }
+        super.onResume();
+    }
+
     public void editLocation (View view) {
         Intent intent = new Intent(getActivity(), MapsActivity.class);
         Bundle bundle = new Bundle();
@@ -88,4 +100,18 @@ public class JourneyNote extends Fragment {
                 public void onProviderDisabled(String provider){
                 }
     };
+
+    public void saveNote (String title, String description) {
+        note.setTitle(title);
+        note.setDescription(description);
+        try{
+            NotesDAO.getInstance().editNote(getActivity(),note);
+            this.close(getView());
+        }
+
+        catch (Exception e){
+            this.close(getView());
+        }
+
+    }
 }

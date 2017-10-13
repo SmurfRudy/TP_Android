@@ -43,6 +43,7 @@ public class JourneyNoteListAdapter extends RecyclerView.Adapter<JourneyNoteList
         JourneyNoteBinding binding = holder.binding;
         Note note = notes.get(position);
         binding.setJvm(new JourneyNoteViewModel(note, activity));
+        binding.setHandler(new JourneyNoteViewModel(note, activity));
     }
 
     @Override

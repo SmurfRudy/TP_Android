@@ -6,6 +6,10 @@
             name="jvm"
             type="bchsdr.viewModel.JourneyNoteViewModel"
             />
+        <variable
+            name="handler"
+            type="bchsdr.viewModel.JourneyNoteViewModel"
+            />
     </data>
 
     <LinearLayout
@@ -13,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:onClick="@{handler.editNote}">
         <TextView
             android:id="@+id/note_title"
             android:textAppearance="?android:attr/textAppearanceMedium"

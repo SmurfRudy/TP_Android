@@ -92,7 +92,7 @@ public class JourneyDetail extends Fragment {
     }
 
     public void addNote(View view) {
-        Note newNote = new Note();
+        Note newNote = new Note(journey.getId());
         newNote.setTitle("New Note " + (this.notes.size() + 1));
         JourneyNote journeyNote = new JourneyNote();
         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();

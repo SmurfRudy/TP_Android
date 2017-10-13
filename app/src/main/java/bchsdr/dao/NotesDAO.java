@@ -32,7 +32,7 @@ public class NotesDAO {
     }
 
     public void editNote(Context context, Note note) {
-        if (note.getId_notes() < 0) {
+        if (note.getIdNotes() < 0) {
             ConnectionSQLiteHelper.getInstance(context).insertNote(note);
         }
         else{

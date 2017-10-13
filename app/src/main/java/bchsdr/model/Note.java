@@ -8,40 +8,38 @@ import java.io.Serializable;
 
 public class Note implements Serializable{
 
-    private int id_notes;
+    private int idNotes;
     private String title;
     private String description;
-    private int id_journey;
-    private String picture_location;
-    private float latitude;
-    private float longitude;
+    private int idJourney;
+    private String pictureLocation;
+    private Float latitude;
+    private Float longitude;
 
-    public Note() {
-        this.id_notes = -1;
+    public Note(int idJourney) {
+        this.idNotes = -1;
+        this.idJourney = idJourney;
         this.title = " ";
         this.description = " ";
-        this.picture_location = " ";
-        this.id_journey = -1;
-        this.latitude = 0;
-        this.longitude = 0;
+        this.pictureLocation = " ";
     }
 
-    public Note(int id_notes, String title, String description, int id_journey, String picture_location, float latitude, float longitude) {
-        this.id_notes = id_notes;
+    public Note(int idNotes, String title, String description, int idJourney, String pictureLocation, float latitude, float longitude) {
+        this.idNotes = idNotes;
         this.title = title;
         this.description = description;
-        this.id_journey = id_journey;
-        this.picture_location = picture_location;
+        this.idJourney = idJourney;
+        this.pictureLocation = pictureLocation;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public int getId_notes() {
-        return id_notes;
+    public int getIdNotes() {
+        return idNotes;
     }
 
-    public void setId_notes(int id_notes) {
-        this.id_notes = id_notes;
+    public void setIdNotes(int idNotes) {
+        this.idNotes = idNotes;
     }
 
     public String getTitle() {
@@ -60,35 +58,35 @@ public class Note implements Serializable{
         this.description = description;
     }
 
-    public String getPicture_location() {
-        return picture_location;
+    public String getPictureLocation() {
+        return pictureLocation;
     }
 
-    public void setPicture_location(String picture_location) {
-        this.picture_location = picture_location;
+    public void setPictureLocation(String pictureLocation) {
+        this.pictureLocation = pictureLocation;
     }
 
-    public float getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
-    public int getId_journey() {
-        return id_journey;
+    public int getIdJourney() {
+        return idJourney;
     }
 
-    public void setId_journey(int id_journey) {
-        this.id_journey = id_journey;
+    public void setIdJourney(int idJourney) {
+        this.idJourney = idJourney;
     }
 }
