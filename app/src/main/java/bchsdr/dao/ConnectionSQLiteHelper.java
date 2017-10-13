@@ -24,7 +24,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
     //Initialisation de la base
     private static ConnectionSQLiteHelper ConnectionSQLiteHelper;
-    private static final String DB_NAME = "TP_android.sqlite";
+    private static final String DB_NAME = "TP_android2.sqlite";
     private static final int VERSION = 1;
 
     //Fonction et procédure de la base
@@ -208,7 +208,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     protected Cursor queryNotes(int id_journey) {
         // equivalent to "select * from table_notes order by id asc"
         Cursor cursor = getReadableDatabase().query(TABLE_NOTES,
-                null, COL_JOURNEYS_ID +"="+ id_journey, null, null, null, COL_NOTES_ID + " asc");
+                null, COL_NOTES_IDJOURNEY +"="+ id_journey, null, null, null, COL_NOTES_ID + " asc");
         return cursor;
     }
 
