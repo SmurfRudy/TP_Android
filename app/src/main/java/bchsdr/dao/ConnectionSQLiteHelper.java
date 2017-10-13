@@ -24,7 +24,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
     //Initialisation de la base
     private static ConnectionSQLiteHelper ConnectionSQLiteHelper;
-    private static final String DB_NAME = "TP_android.sqlite";
+    private static final String DB_NAME = "TP_android.bd";
     private static final int VERSION = 1;
 
     //Fonction et procédure de la base
@@ -95,11 +95,11 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_JOURNEYS_ID + " = ?";
 
-        String idString = Integer.toString(journey.get_id());
+        String idString = Integer.toString(journey.getId());
         String[] selectionArgs = { idString };
 
         ContentValues cv = new ContentValues();
-        cv.put(COL_JOURNEYS_ID, journey.get_id());
+        cv.put(COL_JOURNEYS_ID, journey.getId());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
@@ -127,7 +127,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext())
         {
             Journey sejour =new Journey();
-            sejour.set_id(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
+            sejour.setId(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
             sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
             sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
 

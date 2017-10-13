@@ -50,10 +50,10 @@ public class JourneyNote extends Fragment {
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
             ActivityCompat.requestPermissions(this.getActivity(),permissions,1);
-            LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 120, 100,myLocationListener);
-            manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120, 100,myLocationListener);
         }
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 120, 100,myLocationListener);
+        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 120, 100,myLocationListener);
         return binding.getRoot();
     }
 
@@ -62,6 +62,7 @@ public class JourneyNote extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("latitude", defaultLatitude);
         bundle.putSerializable("longitude", defaultLongitude);
+        bundle.putSerializable("note", note);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
     }
