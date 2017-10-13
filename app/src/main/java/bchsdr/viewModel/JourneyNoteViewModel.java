@@ -14,11 +14,6 @@ import bchsdr.model.Note;
  */
 
 public class JourneyNoteViewModel extends BaseObservable {
-    public String labelTitle = "Title :";
-    public String labelDescription = "Description :";
-    public String labelLocation = "Location :";
-    public String edit = "Edit";
-    public String cancel = "Close";
 
     private Note note;
     private Activity activity;
