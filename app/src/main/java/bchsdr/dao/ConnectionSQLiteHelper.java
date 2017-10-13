@@ -201,17 +201,17 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
 
 
-    protected Cursor queryNotes(int id_journey) {
+    protected Cursor queryNotes(int idJourney) {
         // equivalent to "select * from table_notes order by id asc"
         Cursor cursor = getReadableDatabase().query(TABLE_NOTES,
-                null, COL_NOTES_IDJOURNEY +"="+ id_journey, null, null, null, COL_NOTES_ID + " asc");
+                null,  COL_NOTES_IDJOURNEY +"="+ idJourney, null, null, null, COL_NOTES_ID + " asc");
         return cursor;
     }
 
-    protected List<Note> getDBNotesDAO(int id_journey) throws ParseException {
+    protected List<Note> getDBNotesDAO(int idJourney) throws ParseException {
 
         List<Note> notes = new ArrayList<>();
-        Cursor cursor = queryNotes(id_journey);
+        Cursor cursor = queryNotes(idJourney);
         while (cursor.moveToNext())
         {
             Note note =new Note();

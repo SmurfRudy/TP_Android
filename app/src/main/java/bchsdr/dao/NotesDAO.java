@@ -31,7 +31,7 @@ public class NotesDAO {
 
     }
 
-    public void edit_journey(Context context, Note note) {
+    public void editNote(Context context, Note note) {
         if (note.getId_notes() < 0) {
             ConnectionSQLiteHelper.getInstance(context).insertNote(note);
         }
