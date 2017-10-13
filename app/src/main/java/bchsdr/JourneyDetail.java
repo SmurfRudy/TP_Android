@@ -55,7 +55,7 @@ public class JourneyDetail extends Fragment {
         }
         binding.setHandler(this);
 
-        getNotes();
+        getNotes(this.journey.getId());
         binding.journeyNoteList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         binding.journeyNoteList.setAdapter(new JourneyNoteListAdapter(notes, getActivity()));
         return binding.getRoot();
@@ -114,8 +114,8 @@ public class JourneyDetail extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void getNotes(){
-        this.notes = NotesDAO.getInstance().getDBNotes(getActivity());
+    public void getNotes(int idJourney){
+        this.notes = NotesDAO.getInstance().getDBNotes(getActivity(), idJourney);
     }
 
     public void showDatePickerDialog(View view){
