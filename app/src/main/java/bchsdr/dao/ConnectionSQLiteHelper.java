@@ -54,6 +54,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     //Initialisation de la Table NOTES
     private static final String TABLE_NOTES = "notes";
     private static final String COL_NOTES_ID = "id_notes";
+    private static final String COL_NOTES_IDJOURNEY = "id_journey";
     private static final String COL_NOTES_TITLE = "title";
     private static final String COL_NOTES_DESCRIPTION = "description";
     private static final String COL_NOTES_PICTURE   = "picture_location";
@@ -66,7 +67,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         //creation de la table Journeys
         db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL, description TEXT)");
         //creation de la table notes
-        db.execSQL("create table notes (id_notes INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, picture_location TEXT NOT NULL, latitude TEXT, longitude TEXT)");
+        db.execSQL("create table notes (id_notes INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, id_journey TEXT NOT NULL, description TEXT NOT NULL, picture_location TEXT NOT NULL, latitude TEXT, longitude TEXT)");
 
     };
 
@@ -95,11 +96,11 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_JOURNEYS_ID + " = ?";
 
-        String idString = Integer.toString(journey.get_id());
+        String idString = Integer.toString(journey.getId());
         String[] selectionArgs = { idString };
 
         ContentValues cv = new ContentValues();
-        cv.put(COL_JOURNEYS_ID, journey.get_id());
+        cv.put(COL_JOURNEYS_ID, journey.getId());
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
@@ -127,7 +128,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext())
         {
             Journey sejour =new Journey();
-            sejour.set_id(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
+            sejour.setId(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
             sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
             sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
 
@@ -167,6 +168,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
+        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
         cv.put(COL_NOTES_PICTURE, note.getPicture_location());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
@@ -192,6 +194,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
+        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
         cv.put(COL_NOTES_PICTURE, note.getPicture_location());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
@@ -202,23 +205,24 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
 
 
-    protected Cursor queryNotes() {
+    protected Cursor queryNotes(int id_journey) {
         // equivalent to "select * from table_notes order by id asc"
         Cursor cursor = getReadableDatabase().query(TABLE_NOTES,
-                null, null, null, null, null, COL_NOTES_ID + " asc");
+                null, COL_JOURNEYS_ID +"="+ id_journey, null, null, null, COL_NOTES_ID + " asc");
         return cursor;
     }
 
-    protected List<Note> getDBNotesDAO() throws ParseException {
+    protected List<Note> getDBNotesDAO(int id_journey) throws ParseException {
 
         List<Note> notes = new ArrayList<>();
-        Cursor cursor = queryNotes();
+        Cursor cursor = queryNotes(id_journey);
         while (cursor.moveToNext())
         {
             Note note =new Note();
             note.setId_notes(cursor.getInt(cursor.getColumnIndex(COL_NOTES_ID)));
             note.setTitle(cursor.getString(cursor.getColumnIndex(COL_NOTES_TITLE)));
             note.setDescription(cursor.getString(cursor.getColumnIndex(COL_NOTES_DESCRIPTION)));
+            note.setId_journey(cursor.getInt(cursor.getColumnIndex(COL_NOTES_IDJOURNEY)));
             note.setPicture_location(cursor.getString(cursor.getColumnIndex(COL_NOTES_PICTURE)));
             note.setLatitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LATITUDE))));
             note.setLongitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LONGITUDE))));

@@ -22,9 +22,9 @@ public class NotesDAO {
         return notesDAO;
     }
 
-    public List<Note> getDBNotes(Context context){
+    public List<Note> getDBNotes(Context context, int id_journey){
         try {
-            return ConnectionSQLiteHelper.getInstance(context).getDBNotesDAO();
+            return ConnectionSQLiteHelper.getInstance(context).getDBNotesDAO(id_journey);
         } catch (ParseException e) {
             return null;
         }
