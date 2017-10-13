@@ -114,11 +114,6 @@ public class JourneyDetail extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void showMap(View view) {
-        Intent intent = new Intent(getActivity(), MapsActivity.class);
-        getActivity().startActivity(intent);
-    }
-
     public void getNotes(){
         this.notes = NotesDAO.getInstance().getDBNotes(getActivity());
     }

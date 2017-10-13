@@ -1,7 +1,10 @@
 package bchsdr.viewModel;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import bchsdr.model.Note;
@@ -13,6 +16,8 @@ import bchsdr.model.Note;
 public class JourneyNoteViewModel extends BaseObservable {
     public String labelTitle = "Title :";
     public String labelDescription = "Description :";
+    public String labelLocation = "Location :";
+    public String edit = "Edit";
     public String cancel = "Close";
 
     private Note note;
