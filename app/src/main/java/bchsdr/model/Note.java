@@ -1,10 +1,12 @@
 package bchsdr.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Maxime on 12/10/2017.
  */
 
-public class Note {
+public class Note implements Serializable{
 
     private int id_notes;
     private String title;

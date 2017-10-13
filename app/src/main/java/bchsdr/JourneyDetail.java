@@ -13,21 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
-import bchsdr.dao.JourneysDAO;
-
 import bchsdr.adapter.JourneyNoteListAdapter;
+import bchsdr.dao.JourneysDAO;
+import bchsdr.dao.NotesDAO;
 import bchsdr.maps.MapsActivity;
 import bchsdr.model.Journey;
 import bchsdr.model.Note;
@@ -47,7 +45,6 @@ public class JourneyDetail extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
-        this.journey = null;
         JourneyDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.journey_detail, container, false);
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -65,17 +62,8 @@ public class JourneyDetail extends Fragment {
     }
 
     public void close(View view) {
-        JourneysFragment journeysFragment = new JourneysFragment();
-        // Debut du changement de fragment
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
-        fragmentTransaction.addToBackStack(null);
-        // On remplace le fragment dans le container par le nouveau fragment
-        fragmentTransaction.replace(R.id.fragment_container, journeysFragment);
-        fragmentTransaction.commit();
+        fragmentManager.popBackStackImmediate();
     }
 
     private Calendar stringF2ToCal(String stringF2){
@@ -94,7 +82,7 @@ public class JourneyDetail extends Fragment {
         try{
             String description = "TO DO";
             Journey newJourney =new Journey(name, stringF2ToCal(start_date), stringF2ToCal(end_date), id, description);
-            JourneysDAO.getInstance().edit_journey(getActivity(),newJourney);
+            JourneysDAO.getInstance().editJourney(getActivity(),newJourney);
             this.close(getView());
         }
 
@@ -105,7 +93,25 @@ public class JourneyDetail extends Fragment {
     }
 
     public void addNote(View view) {
+        Note newNote = new Note();
+        newNote.setTitle("New Note " + (this.notes.size() + 1));
+        JourneyNote journeyNote = new JourneyNote();
+        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        // Pour passer des paramètres on utilise un bundle
+        Bundle bundle = new Bundle();
+        // On passe un objet (qui doit etre serializable
+        bundle.putSerializable("note", newNote);
+        // On passe le bundle (avec l'objet) au nouveau fragment
+        journeyNote.setArguments(bundle);
 
+        // à comprendre - on sauvegarde l'état lorsque le fragment que l'on rajoute sera supprimé
+        fragmentTransaction.addToBackStack("journey_detail");
+        // On remplace le fragment dans le container par le nouveau fragment
+        fragmentTransaction.replace(R.id.fragment_container, journeyNote);
+
+        fragmentTransaction.commit();
     }
 
     public void showMap(View view) {
@@ -114,11 +120,11 @@ public class JourneyDetail extends Fragment {
     }
 
     public void getNotes(){
-        this.notes = new ArrayList<Note>();
+        this.notes = NotesDAO.getInstance().getDBNotes(getActivity());
     }
 
     public void showDatePickerDialog(View view){
-        final EditText editText = (EditText) view;
+        final TextView textView = (TextView) view;
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -128,16 +134,16 @@ public class JourneyDetail extends Fragment {
                 DateFormat sdf = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM,
                         Locale.getDefault());
                 String selectedDate = sdf.format(calendar.getTime());
-                editText.setText(selectedDate);
+                textView.setText(selectedDate);
                 //editText.setText(day + "/" + month +"/"+ year);
             }
         };
         Calendar calendar = Calendar.getInstance();
-        if (!editText.getText().toString().equals("")) {
-                calendar = convertToCalendar(editText.getText().toString());
+        if (!textView.getText().toString().equals("")) {
+                calendar = convertToCalendar(textView.getText().toString());
 
         }
-        DatePickerDialog pickerDialog = new DatePickerDialog(editText.getContext(), dateSetListener,
+        DatePickerDialog pickerDialog = new DatePickerDialog(textView.getContext(), dateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         pickerDialog.show();
     }
@@ -153,6 +159,10 @@ public class JourneyDetail extends Fragment {
 
 
         return cal;
+    }
+
+    public Journey getJourney (){
+        return this.journey;
     }
 }
 

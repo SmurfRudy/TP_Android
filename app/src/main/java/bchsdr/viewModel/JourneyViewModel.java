@@ -1,7 +1,8 @@
 package bchsdr.viewModel;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import bchsdr.JourneyDetail;
-import bchsdr.maps.MapsActivity;
+import bchsdr.JourneysFragment;
+import bchsdr.dao.ConnectionSQLiteHelper;
+import bchsdr.dao.JourneysDAO;
 import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 
@@ -84,5 +87,14 @@ public class JourneyViewModel extends BaseObservable {
         fragmentTransaction.replace(R.id.fragment_container, journeyDetail);
 
         fragmentTransaction.commit();
+    }
+
+    public void delete (View view) {
+        JourneysDAO.getInstance().deleteJourney(activity, this.journey);
+        FragmentManager manager = activity.getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        JourneysFragment fragment = new JourneysFragment();
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.commit();
     }
 }

@@ -2,6 +2,7 @@ package bchsdr.dao;
 import android.content.Context;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 import bchsdr.model.Journey;
@@ -29,13 +30,17 @@ public class JourneysDAO {
 
     }
 
-    public void edit_journey(Context context, Journey journey) {
+    public void editJourney(Context context, Journey journey) {
         if (journey.get_id() < 0) {
             ConnectionSQLiteHelper.getInstance(context).insertJourney(journey);
         }
         else{
             ConnectionSQLiteHelper.getInstance(context).updateJourney(journey);
         }
+    }
+
+    public void deleteJourney(Context context, Journey journey) {
+        ConnectionSQLiteHelper.getInstance(context).deleteJourney(journey.get_id());
     }
 
 }

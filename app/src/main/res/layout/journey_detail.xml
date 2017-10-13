@@ -12,7 +12,7 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/journey_new"
+        android:id="@+id/journey_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/label_name_new"
+                android:id="@+id/label_name"
                 android:text="@{jvm.labelName}"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
@@ -39,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
                 <TextView
-                android:id="@+id/label_start_date_new"
+                android:id="@+id/label_start_date"
                 android:text="@{jvm.labelDeparture}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
-                <EditText
-                    android:id="@+id/start_date_new"
+                <TextView
+                    android:id="@+id/start_date"
                     android:text="@{jvm.from}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,14 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/label_end_date_new"
+                android:id="@+id/label_end_date"
                 android:text="@{jvm.labelReturn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
-            <EditText
-                android:id="@+id/end_date_new"
+            <TextView
+                android:id="@+id/end_date"
                 android:text="@{jvm.to}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{jvm.createtravel}"
-                android:onClick="@{()-> handler.saveJourney(jvm.id ,nameNew.getText().toString(), startDateNew.getText().toString(), endDateNew.getText().toString())}"/>
+                android:onClick="@{()-> handler.saveJourney(jvm.id ,nameNew.getText().toString(), startDate.getText().toString(), endDate.getText().toString())}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -1,6 +1,5 @@
 package bchsdr.model;
 
-import java.io.Closeable;
 import java.io.Serializable;
 import java.util.Calendar;
 

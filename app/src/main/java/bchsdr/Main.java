@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.Calendar;
-
-import bchsdr.dao.JourneysDAO;
-import bchsdr.model.Journey;
 import bchsdr.tp_android_1.R;
 import bchsdr.tp_android_1.databinding.MainActivityBinding;
 

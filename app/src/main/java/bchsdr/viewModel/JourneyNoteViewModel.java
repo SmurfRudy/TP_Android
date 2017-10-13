@@ -2,6 +2,7 @@ package bchsdr.viewModel;
 
 import android.app.Activity;
 import android.databinding.BaseObservable;
+import android.view.View;
 
 import bchsdr.model.Note;
 
@@ -10,6 +11,9 @@ import bchsdr.model.Note;
  */
 
 public class JourneyNoteViewModel extends BaseObservable {
+    public String labelTitle = "Title :";
+    public String labelDescription = "Description :";
+    public String cancel = "Close";
 
     private Note note;
     private Activity activity;
@@ -22,5 +26,16 @@ public class JourneyNoteViewModel extends BaseObservable {
         this.note = note;
         this.activity = activity;
     }
+
+    public String getTitle (){
+        return note.getTitle();
+    }
+
+    public String getDescription () {
+        return note.getDescription();
+    }
+
+
+
 }
 
