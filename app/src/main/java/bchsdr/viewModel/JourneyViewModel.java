@@ -51,7 +51,7 @@ public class JourneyViewModel extends BaseObservable {
         return this.journey.getName();
     }
     public int getId() {
-        return this.journey.get_id();
+        return this.journey.getId();
     }
 
     public String getFrom() {

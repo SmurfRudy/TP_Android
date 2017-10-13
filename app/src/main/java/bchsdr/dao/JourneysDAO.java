@@ -31,7 +31,7 @@ public class JourneysDAO {
     }
 
     public void editJourney(Context context, Journey journey) {
-        if (journey.get_id() < 0) {
+        if (journey.getId() < 0) {
             ConnectionSQLiteHelper.getInstance(context).insertJourney(journey);
         }
         else{
@@ -40,7 +40,7 @@ public class JourneysDAO {
     }
 
     public void deleteJourney(Context context, Journey journey) {
-        ConnectionSQLiteHelper.getInstance(context).deleteJourney(journey.get_id());
+        ConnectionSQLiteHelper.getInstance(context).deleteJourney(journey.getId());
     }
 
 }
