@@ -11,6 +11,7 @@ public class Note implements Serializable{
     private int id_notes;
     private String title;
     private String description;
+    private int id_journey;
     private String picture_location;
     private float latitude;
     private float longitude;
@@ -20,14 +21,16 @@ public class Note implements Serializable{
         this.title = " ";
         this.description = " ";
         this.picture_location = " ";
+        this.id_journey = -1;
         this.latitude = 0;
         this.longitude = 0;
     }
 
-    public Note(int id_notes, String title, String description, String picture_location, float latitude, float longitude) {
+    public Note(int id_notes, String title, String description, int id_journey, String picture_location, float latitude, float longitude) {
         this.id_notes = id_notes;
         this.title = title;
         this.description = description;
+        this.id_journey = id_journey;
         this.picture_location = picture_location;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -79,5 +82,13 @@ public class Note implements Serializable{
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public int getId_journey() {
+        return id_journey;
+    }
+
+    public void setId_journey(int id_journey) {
+        this.id_journey = id_journey;
     }
 }

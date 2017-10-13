@@ -24,7 +24,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
 
     //Initialisation de la base
     private static ConnectionSQLiteHelper ConnectionSQLiteHelper;
-    private static final String DB_NAME = "TP_android.bd";
+    private static final String DB_NAME = "TP_android2.sqlite";
     private static final int VERSION = 1;
 
     //Fonction et procédure de la base
@@ -49,11 +49,11 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     private static final String COL_JOURNEYS_DESTINATION = "destination";
     private static final String COL_JOURNEYS_STARTDATE   = "start_date";
     private static final String COL_JOURNEYS_ENDDATE = "end_date";
-    private static final String COL_JOURNEYS_DESCRIPTION = "description";
 
     //Initialisation de la Table NOTES
     private static final String TABLE_NOTES = "notes";
     private static final String COL_NOTES_ID = "id_notes";
+    private static final String COL_NOTES_IDJOURNEY = "id_journey";
     private static final String COL_NOTES_TITLE = "title";
     private static final String COL_NOTES_DESCRIPTION = "description";
     private static final String COL_NOTES_PICTURE   = "picture_location";
@@ -64,9 +64,9 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
     //Creation de la Base
     public void onCreate(SQLiteDatabase db){
         //creation de la table Journeys
-        db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL, description TEXT)");
+        db.execSQL("create table journeys (_id INTEGER PRIMARY KEY AUTOINCREMENT, destination TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL)");
         //creation de la table notes
-        db.execSQL("create table notes (id_notes INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, picture_location TEXT NOT NULL, latitude TEXT, longitude TEXT)");
+        db.execSQL("create table notes (id_notes INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, id_journey TEXT NOT NULL, description TEXT NOT NULL, picture_location TEXT NOT NULL, latitude TEXT, longitude TEXT)");
 
     };
 
@@ -78,7 +78,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
-        cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         return getWritableDatabase().insertOrThrow(TABLE_JOURNEYS, null, cv);
     }
@@ -103,7 +102,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         cv.put(COL_JOURNEYS_DESTINATION, journey.getName());
         cv.put(COL_JOURNEYS_STARTDATE, toStringDate(journey.getFrom()));
         cv.put(COL_JOURNEYS_ENDDATE, toStringDate(journey.getTo()));
-        cv.put(COL_JOURNEYS_DESCRIPTION, journey.getDescription());
 
         int i = db.update(TABLE_JOURNEYS, cv, selection, selectionArgs);
         //db.close();
@@ -129,7 +127,6 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
             Journey sejour =new Journey();
             sejour.setId(cursor.getInt(cursor.getColumnIndex(COL_JOURNEYS_ID)));
             sejour.setName(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESTINATION)));
-            sejour.setDescription(cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_DESCRIPTION)));
 
 
             String start_date = cursor.getString(cursor.getColumnIndex(COL_JOURNEYS_STARTDATE));
@@ -167,6 +164,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
+        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
         cv.put(COL_NOTES_PICTURE, note.getPicture_location());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
@@ -192,6 +190,7 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_NOTES_TITLE, note.getTitle());
         cv.put(COL_NOTES_DESCRIPTION, note.getDescription());
+        cv.put(COL_NOTES_IDJOURNEY, note.getId_journey());
         cv.put(COL_NOTES_PICTURE, note.getPicture_location());
         cv.put(COL_NOTES_LATITUDE, note.getLatitude());
         cv.put(COL_NOTES_LONGITUDE, note.getLongitude());
@@ -209,16 +208,17 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected List<Note> getDBNotesDAO() throws ParseException {
+    protected List<Note> getDBNotesDAO(int id_journey) throws ParseException {
 
         List<Note> notes = new ArrayList<>();
-        Cursor cursor = queryNotes();
+        Cursor cursor = queryNotes(id_journey);
         while (cursor.moveToNext())
         {
             Note note =new Note();
             note.setId_notes(cursor.getInt(cursor.getColumnIndex(COL_NOTES_ID)));
             note.setTitle(cursor.getString(cursor.getColumnIndex(COL_NOTES_TITLE)));
             note.setDescription(cursor.getString(cursor.getColumnIndex(COL_NOTES_DESCRIPTION)));
+            note.setId_journey(cursor.getInt(cursor.getColumnIndex(COL_NOTES_IDJOURNEY)));
             note.setPicture_location(cursor.getString(cursor.getColumnIndex(COL_NOTES_PICTURE)));
             note.setLatitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LATITUDE))));
             note.setLongitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LONGITUDE))));

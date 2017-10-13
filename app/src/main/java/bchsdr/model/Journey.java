@@ -12,7 +12,6 @@ public class Journey implements Serializable {
     private String name;
     private Calendar from;
     private Calendar to;
-    private String description;
 
     public Journey(){
         name="";
@@ -20,19 +19,17 @@ public class Journey implements Serializable {
         from.set(Calendar.HOUR_OF_DAY, 0);
         to = Calendar.getInstance();
         to.set(Calendar.HOUR_OF_DAY, 0);
-        description="";
         id = -1;
     }
 
 
 
 
-    public Journey (String name, Calendar from, Calendar to, int id, String description) {
+    public Journey (String name, Calendar from, Calendar to, int id) {
         this.name = name;
         this.from = from;
         this.to = to;
         this.id = id;
-        this.description =description;
     }
 
     public String getName() {
@@ -67,11 +64,4 @@ public class Journey implements Serializable {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
