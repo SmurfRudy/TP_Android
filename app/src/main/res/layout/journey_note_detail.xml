@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/label_title"
-                android:text="@{jvm.labelTitle}"
+                android:text="@string/labelTitle"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/label_description"
-            android:text="@{jvm.labelDescription}"
+            android:text="@string/labelDescription"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/label_position"
-                android:text="@{jvm.labelLocation}"
+                android:text="@string/labelLocation"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -64,7 +64,7 @@
                 android:id="@+id/buttonEditLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{jvm.edit}"
+                android:text="@string/edit"
                 android:onClick="@{handler.editLocation}"/>
         </LinearLayout>
 
@@ -77,7 +77,7 @@
                 android:id="@+id/buttoncancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{jvm.cancel}"
+                android:text="@string/close"
                 android:onClick="@{handler.close}"/>
             <Button
                 android:id="@+id/buttonsave"

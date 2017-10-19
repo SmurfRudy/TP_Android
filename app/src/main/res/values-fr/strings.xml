@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TP_Android_1</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- French Traduction -->
+    <string name="labelName">Nom : </string>
+    <string name="labelDeparture">Date de départ : "</string>
+    <string name="labelReturn">Date de retour : </string>
+    <string name="createtravel">Ajouter un séjour</string>
+    <string name="cancel">Annulation</string>
+    <string name="labelAddNote">Ajouter une note</string>
+    <string name="edittravel">Editer un séjour</string>
+
+
+    <string name="labelTitle">Titre :</string>
+    <string name="labelDescription">Description :</string>
+    <string name="labelLocation">Location :</string>
+    <string name="edit">Editer / Montrer</string>
+    <string name="close">Fermer</string>
+</resources>

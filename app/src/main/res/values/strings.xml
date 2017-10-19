@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">TP_Android_1</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- English Traduction by default -->
+    <string name="labelName">Name : </string>
+    <string name="labelDeparture">Departure date : "</string>
+    <string name="labelReturn">Return date : </string>
+    <string name="createtravel">Create Travel</string>
+    <string name="cancel">Cancel</string>
+    <string name="labelAddNote">Add note</string>
+    <string name="edittravel">Edit Travel</string>
+
+    <string name="labelTitle">Title :</string>
+    <string name="labelDescription">Description :</string>
+    <string name="labelLocation">Location :</string>
+    <string name="edit">Edit / Show</string>
+    <string name="close">Close</string>
+
 </resources>
