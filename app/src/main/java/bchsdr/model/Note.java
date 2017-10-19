@@ -19,9 +19,9 @@ public class Note implements Serializable{
     public Note(int idJourney) {
         this.idNotes = -1;
         this.idJourney = idJourney;
-        this.title = " ";
-        this.description = " ";
-        this.pictureLocation = "@drawable/no_image";
+        this.title = "";
+        this.description = "";
+        this.pictureLocation = "";
     }
 
     public Note(int idNotes, String title, String description, int idJourney, String pictureLocation, float latitude, float longitude) {
@@ -31,11 +31,7 @@ public class Note implements Serializable{
         this.idJourney = idJourney;
         this.latitude = latitude;
         this.longitude = longitude;
-        if (pictureLocation != null && pictureLocation != "") {
-            this.pictureLocation = pictureLocation;
-        }else {
-            this.pictureLocation = "@drawable/no_image";
-        }
+        this.pictureLocation = pictureLocation;
     }
 
     public int getIdNotes() {
