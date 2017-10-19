@@ -17,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng myPosition;
     private LatLng markerPosition;
     private String markerName;
+    private Marker marker;
     private Note note;
 
     @Override
@@ -84,12 +86,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mMap.addMarker(new MarkerOptions().position(latLng).title(markerName));
+                marker.remove();
+                marker = mMap.addMarker(new MarkerOptions().position(latLng).title(markerName));
                 markerPosition = latLng;
             }
         });
-        if (markerPosition != null) {
-            mMap.addMarker(new MarkerOptions().position(markerPosition).title("Note Marker"));
+        if (note.getLongitude() != null) {
+            LatLng newLatLng = new LatLng(note.getLatitude(), note.getLongitude());
+            this.marker = mMap.addMarker(new MarkerOptions().position(newLatLng).title("Note Marker"));
+        }else if (markerPosition != null) {
+            this.marker = mMap.addMarker(new MarkerOptions().position(markerPosition).title("Note Marker"));
             myPosition = markerPosition;
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 12));

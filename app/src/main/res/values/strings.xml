@@ -10,6 +10,7 @@
     <string name="cancel">Cancel</string>
     <string name="labelAddNote">Add note</string>
     <string name="save">Save</string>
+    <string name="modify">Modify</string>
 
     <string name="labelTitle">Title :</string>
     <string name="labelDescription">Description :</string>

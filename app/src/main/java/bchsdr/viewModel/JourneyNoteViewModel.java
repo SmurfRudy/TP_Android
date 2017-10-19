@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -44,6 +45,8 @@ public class JourneyNoteViewModel extends BaseObservable {
     public String getDescription () {
         return note.getDescription();
     }
+
+    public Drawable getPicture () { return activity.getResources().getDrawable(R.drawable.no_image); }
 
     public void editNote (View view) {
         JourneyNote journeyNote = new JourneyNote();

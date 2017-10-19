@@ -126,4 +126,8 @@ public class JourneyNote extends Fragment {
         }
 
     }
+
+    public void modifyPicture (View view) {
+
+    }
 }
