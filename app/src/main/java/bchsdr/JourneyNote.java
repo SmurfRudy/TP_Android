@@ -1,6 +1,7 @@
 package bchsdr;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -44,7 +45,7 @@ public class JourneyNote extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             this.note = (Note) bundle.getSerializable("note");
-            binding.setJvm(new JourneyNoteViewModel(this.note, getActivity()));
+            binding.setJvm(new JourneyNoteViewModel(this.note, (Journey) bundle.getSerializable("journey"), getActivity()));
         }else{
             binding.setJvm(new JourneyNoteViewModel(getActivity()));
         }
@@ -69,6 +70,17 @@ public class JourneyNote extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                this.note = (Note) bundle.getSerializable("note");
+            }
+        }
+    }
+
     public void editLocation (View view) {
         Intent intent = new Intent(getActivity(), MapsActivity.class);
         Bundle bundle = new Bundle();
@@ -76,7 +88,7 @@ public class JourneyNote extends Fragment {
         bundle.putSerializable("longitude", defaultLongitude);
         bundle.putSerializable("note", note);
         intent.putExtras(bundle);
-        getActivity().startActivity(intent);
+        getActivity().startActivityForResult(intent, 1);
     }
 
     public void close (View view) {

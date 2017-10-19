@@ -96,10 +96,10 @@
                 android:text="@string/cancel"
                 android:onClick="@{handler.close}"/>
             <Button
-                android:id="@+id/buttoncreate"
+                android:id="@+id/buttonedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{jvm.labelcreatetravel}"
+                android:text="@string/save"
                 android:onClick="@{()-> handler.saveJourney(jvm.id ,nameNew.getText().toString(), startDate.getText().toString(), endDate.getText().toString())}"/>
         </LinearLayout>
     </LinearLayout>

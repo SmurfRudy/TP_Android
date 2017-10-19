@@ -1,7 +1,11 @@
 package bchsdr.maps;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +19,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import bchsdr.dao.NotesDAO;
 import bchsdr.model.Note;
 import bchsdr.tp_android_1.R;
@@ -24,6 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private LatLng myPosition;
     private LatLng markerPosition;
+    private String markerName;
     private Note note;
 
     @Override
@@ -63,7 +72,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Note Marker"));
+                try {
+
+                    Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    List<Address> addresses = geo.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                    if (addresses.size() > 0) {
+                        markerName= addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName();
+                    }else{
+                        markerName = "Unkown Location";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mMap.addMarker(new MarkerOptions().position(latLng).title(markerName));
                 markerPosition = latLng;
             }
         });
@@ -81,6 +102,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.note.setLatitude((float) markerPosition.latitude);
         this.note.setLongitude((float) markerPosition.longitude);
         NotesDAO.getInstance().editNote(this, note);
+        Intent resultIntent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("note",note);
+        resultIntent.putExtras(bundle);
+        setResult(Activity.RESULT_OK, resultIntent);
         this.finish();
     }
 

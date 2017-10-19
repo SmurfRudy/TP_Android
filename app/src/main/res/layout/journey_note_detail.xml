@@ -83,7 +83,7 @@
                 android:id="@+id/buttonsave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{jvm.save}"
+                android:text="@string/save"
                 android:onClick="@{()-> handler.saveNote(title.getText().toString(), description.getText().toString())}"/>
         </LinearLayout>
     </LinearLayout>

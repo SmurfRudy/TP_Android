@@ -23,14 +23,16 @@ import bchsdr.viewModel.JourneyViewModel;
 public class JourneyNoteListAdapter extends RecyclerView.Adapter<JourneyNoteListAdapter.BindingHolder>{
     private List<Note> notes;
     private Activity activity;
+    private Journey journey;
 
-    public JourneyNoteListAdapter(List<Note> notes, Activity activity) {
+    public JourneyNoteListAdapter(List<Note> notes, Journey journey, Activity activity) {
         this.notes = notes;
         this.activity = activity;
+        this.journey = journey;
     }
 
     @Override
-    public JourneyNoteListAdapter.BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         JourneyNoteBinding binding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.journey_note,parent,false);
@@ -42,8 +44,8 @@ public class JourneyNoteListAdapter extends RecyclerView.Adapter<JourneyNoteList
             position) {
         JourneyNoteBinding binding = holder.binding;
         Note note = notes.get(position);
-        binding.setJvm(new JourneyNoteViewModel(note, activity));
-        binding.setHandler(new JourneyNoteViewModel(note, activity));
+        binding.setJvm(new JourneyNoteViewModel(note, journey, activity));
+        binding.setHandler(new JourneyNoteViewModel(note, journey, activity));
     }
 
     @Override

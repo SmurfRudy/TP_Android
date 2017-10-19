@@ -9,7 +9,7 @@
     <string name="createtravel">Create Travel</string>
     <string name="cancel">Cancel</string>
     <string name="labelAddNote">Add note</string>
-    <string name="edittravel">Edit Travel</string>
+    <string name="save">Save</string>
 
     <string name="labelTitle">Title :</string>
     <string name="labelDescription">Description :</string>

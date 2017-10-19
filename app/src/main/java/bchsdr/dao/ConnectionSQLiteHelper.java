@@ -220,8 +220,8 @@ public class ConnectionSQLiteHelper extends SQLiteOpenHelper {
             note.setDescription(cursor.getString(cursor.getColumnIndex(COL_NOTES_DESCRIPTION)));
             note.setIdJourney(cursor.getInt(cursor.getColumnIndex(COL_NOTES_IDJOURNEY)));
             note.setPictureLocation(cursor.getString(cursor.getColumnIndex(COL_NOTES_PICTURE)));
-            note.setLatitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LATITUDE))));
-            note.setLongitude(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COL_NOTES_LONGITUDE))));
+            note.setLatitude(cursor.getFloat(cursor.getColumnIndex(COL_NOTES_LATITUDE)));
+            note.setLongitude(cursor.getFloat(cursor.getColumnIndex(COL_NOTES_LONGITUDE)));
 
             notes.add(note);
         }

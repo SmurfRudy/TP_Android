@@ -24,9 +24,6 @@ import bchsdr.tp_android_1.R;
  */
 
 public class JourneyViewModel extends BaseObservable {
-
-    public String labelcreatetravel = "";
-
     private Journey journey;
 
     private Activity activity;
@@ -34,13 +31,11 @@ public class JourneyViewModel extends BaseObservable {
     public JourneyViewModel(Activity activity) {
         this.journey = new Journey();
         this.activity = activity;
-        this.labelcreatetravel = activity.getString(R.string.createtravel);
     }
 
     public JourneyViewModel(Journey journey, Activity activity) {
         this.journey = journey;
         this.activity = activity;
-        this.labelcreatetravel = activity.getString(R.string.edittravel);
     }
 
     public String getName() {

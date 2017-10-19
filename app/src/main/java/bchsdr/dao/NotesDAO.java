@@ -40,4 +40,8 @@ public class NotesDAO {
         }
     }
 
+    public void  deleteNote(Context context, Note note) {
+        ConnectionSQLiteHelper.getInstance(context).deleteNote(note.getIdNotes());
+    }
+
 }

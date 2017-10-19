@@ -57,7 +57,7 @@ public class JourneyDetail extends Fragment {
 
         getNotes(this.journey.getId());
         binding.journeyNoteList.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-        binding.journeyNoteList.setAdapter(new JourneyNoteListAdapter(notes, getActivity()));
+        binding.journeyNoteList.setAdapter(new JourneyNoteListAdapter(notes, journey, getActivity()));
         return binding.getRoot();
     }
 
@@ -102,6 +102,7 @@ public class JourneyDetail extends Fragment {
         Bundle bundle = new Bundle();
         // On passe un objet (qui doit etre serializable
         bundle.putSerializable("note", newNote);
+        bundle.putSerializable("journey", journey);
         // On passe le bundle (avec l'objet) au nouveau fragment
         journeyNote.setArguments(bundle);
 

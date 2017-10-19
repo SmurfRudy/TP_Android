@@ -16,14 +16,25 @@
         android:id="@+id/journey_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_margin="5dp"
         android:onClick="@{handler.editNote}">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <TextView
             android:id="@+id/note_title"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:text="@{jvm.title}"/>
+        </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:src="@drawable/btn_delete"
+            android:onClick="@{jvm.deleteNote}"/>
     </LinearLayout>
 </layout>
