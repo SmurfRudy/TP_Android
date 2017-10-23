@@ -8,16 +8,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.io.IOException;
+import java.net.URI;
 
 import bchsdr.dao.JourneysDAO;
 import bchsdr.dao.NotesDAO;
@@ -38,6 +46,9 @@ public class JourneyNote extends Fragment {
     Double defaultLatitude = 45.75;
     Double defaultLongitude = 4.85;
 
+    static int REQUEST_CODE_MAPS = 1;
+    static int REQUEST_CODE_GALLERY = 2;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
@@ -51,8 +62,9 @@ public class JourneyNote extends Fragment {
         }
         binding.setHandler(this);
 
-        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+        if ((ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
+                (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)   ) {
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this.getActivity(),permissions,1);
         }
         LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -73,10 +85,25 @@ public class JourneyNote extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            Bundle bundle = getArguments();
-            if (bundle != null) {
-                this.note = (Note) bundle.getSerializable("note");
+        if (requestCode == REQUEST_CODE_MAPS) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = getArguments();
+                if (bundle != null) {
+                    this.note = (Note) bundle.getSerializable("note");
+                }
+            }
+        }
+        if (requestCode == REQUEST_CODE_GALLERY){
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = getArguments();
+                if (bundle != null){
+                    // changer le src
+                    ImageView imageView = (ImageView) getActivity().findViewById(R.id.image);
+                    Uri uri = data.getData();
+                    imageView.setImageURI(uri);
+                    note.setPictureLocation(uri.toString());
+                    NotesDAO.getInstance().editNote(getActivity(), note);
+                }
             }
         }
     }
@@ -88,7 +115,7 @@ public class JourneyNote extends Fragment {
         bundle.putSerializable("longitude", defaultLongitude);
         bundle.putSerializable("note", note);
         intent.putExtras(bundle);
-        getActivity().startActivityForResult(intent, 1);
+        getActivity().startActivityForResult(intent, REQUEST_CODE_MAPS);
     }
 
     public void close (View view) {
@@ -128,6 +155,8 @@ public class JourneyNote extends Fragment {
     }
 
     public void modifyPicture (View view) {
-        return;
+        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        i.setType("image/*");
+        startActivityForResult(i, 2);
     }
 }

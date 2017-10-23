@@ -6,11 +6,18 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import bchsdr.JourneyDetail;
 import bchsdr.JourneyNote;
@@ -48,11 +55,23 @@ public class JourneyNoteViewModel extends BaseObservable {
     }
 
     public Drawable getPicture () {
+        Drawable drawable = null;
         if (note.getPictureLocation() == null || note.getPictureLocation().equalsIgnoreCase("") ) {
-            return activity.getResources().getDrawable(R.drawable.no_image);
+            drawable = activity.getResources().getDrawable(R.drawable.no_image);
         }else {
-            return BitmapDrawable.createFromPath("");
+            try {
+                if ((ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
+                        (ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
+                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    ActivityCompat.requestPermissions(activity,permissions,1);
+                }
+                InputStream inputStream = activity.getContentResolver().openInputStream(Uri.parse(note.getPictureLocation()));
+                drawable = Drawable.createFromStream(inputStream, note.getPictureLocation());
+            }catch (FileNotFoundException e){
+                drawable = activity.getResources().getDrawable(R.drawable.no_image);
+            }
         }
+        return drawable;
     }
 
     public void editNote (View view) {
